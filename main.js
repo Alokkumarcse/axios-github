@@ -103,18 +103,46 @@ function updateTodo() {
 // DELETE REQUEST
 function removeTodo() {
   /** 1st way to write delete method */
-  axios({
-    method:"delete",
-    url:"https://jsonplaceholder.typicode.com/todos/1",
-  })
+  // axios({
+  //   method:"delete",
+  //   url:"https://jsonplaceholder.typicode.com/todos/1",
+  // })
+  // .then(res => showOutput(res))
+  // .catch(err => console.log(err))
+  // .finally(console.log("I am final method form delete request"));
+
+  /** 2nd way to write delete method in axios */
+  axios.delete("https://jsonplaceholder.typicode.com/todos/3")
   .then(res => showOutput(res))
-  .catch(err => console.log(err))
-  .finally(console.log("I am final method form delete request"));
+  .catch(err => console.log(err));
 }
 
 // SIMULTANEOUS DATA
 function getData() {
-  console.log('Simultaneous Request');
+  /**
+   * Get multiple set of data from different endpoint at a time 
+   * take different url as argument in from of array
+   * and giving response an array of response.
+   * using ... spread operator to get all response value.
+   */
+
+  // axios.all([
+  //   axios.get("https://jsonplaceholder.typicode.com/todos"),
+  //   axios.get("https://jsonplaceholder.typicode.com/posts")
+  // ])
+  // .then(res => { 
+  //   console.log(res[0]);
+  //   console.log(res[1]);
+  // })
+  // .catch(err => console.log(err));
+
+  axios.all([
+    axios.get("https://jsonplaceholder.typicode.com/posts"),
+    axios.get("https://jsonplaceholder.typicode.com/todos")
+  ])
+  .then(res => console.log(...res))
+  .catch(err => console.log(err));
+
 }
 
 // CUSTOM HEADERS
